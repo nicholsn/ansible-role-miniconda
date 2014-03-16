@@ -1,2 +1,5 @@
 ---
-# handlers file for .
+# handlers for miniconda role
+
+- name: remove miniconda setup script
+  file: name=/tmp/miniconda.sh state=absent

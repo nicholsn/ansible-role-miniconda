@@ -1,2 +1,27 @@
 ---
-# tasks file for .
+# tasks file for miniconda role
+
+- name: Download miniconda python distribution
+  sudo: False
+  get_url: 
+    url: http://repo.continuum.io/miniconda/Miniconda-3.0.0-Linux-x86_64.sh 
+    dest: /tmp/miniconda.sh 
+    mode: 0755
+
+- name: Execute the miniconda setup script
+  sudo: False
+  shell: /tmp/miniconda.sh -b creates={{ miniconda_home }} executable=/bin/bash
+  notify:
+    - remove miniconda setup script
+
+- name: Add miniconda to the PATH
+  sudo: False
+  shell: echo "export PATH=$HOME/miniconda/bin:$PATH" >> $HOME/.bashrc executable=/bin/bash
+
+- name: Update conda to latest version
+  sudo: False
+  shell: $HOME/miniconda/bin/conda update conda --yes -q executable=/bin/bash
+
+- name: Install pip
+  sudo: False
+  shell: $HOME/miniconda/bin/conda install pip --yes -q executable=/bin/bash
