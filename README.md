@@ -23,7 +23,7 @@ Example Playbook
 
     - hosts: miniconda
       roles:
-         - { role: nicholsn.miniconda }
+         - { role: nicholsn.miniconda, miniconda_home: /miniconda }
 
 License
 -------
