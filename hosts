@@ -1,0 +1,5 @@
+[vagrant]
+192.168.100.10
+
+[local]
+localhost              ansible_connection=local

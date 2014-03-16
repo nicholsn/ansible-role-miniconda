@@ -1,0 +1,9 @@
+---
+# Playbook for miniconda container
+
+- hosts: local
+  remote_user: root
+  sudo: yes
+
+  roles:
+    - nicholsn.miniconda
