@@ -10,18 +10,20 @@
 
 - name: Execute the miniconda setup script
   sudo: False
-  shell: /tmp/miniconda.sh -b -p {{ miniconda_home }} creates={{ miniconda_home }} executable=/bin/bash
+  command: /tmp/miniconda.sh -b -p {{ miniconda_home }} creates={{ miniconda_home }} executable=/bin/bash
   notify:
     - remove miniconda setup script
 
 - name: Add miniconda to the PATH
   sudo: False
-  shell: echo "export PATH=$HOME/miniconda/bin:$PATH" >> $HOME/.bashrc executable=/bin/bash
+  command: echo {{ item }} >> ~/.bashrc executable=/bin/bash
+  with_items:
+  - "export PATH={{ miniconda_home }}/miniconda/bin:$PATH"
 
 - name: Update conda to latest version
   sudo: False
-  shell: $HOME/miniconda/bin/conda update conda --yes -q executable=/bin/bash
+  command: {{ miniconda_home }}/bin/conda update conda --yes -q executable=/bin/bash
 
 - name: Install pip
   sudo: False
-  shell: $HOME/miniconda/bin/conda install pip --yes -q executable=/bin/bash
+  command: {{ miniconda_home }}/bin/conda install pip --yes -q executable=/bin/bash

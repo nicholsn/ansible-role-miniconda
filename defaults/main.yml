@@ -1,4 +1,4 @@
 ---
 # defaults file for miniconda role
 
-miniconda_home: /miniconda
+miniconda_home: ~/miniconda
