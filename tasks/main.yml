@@ -10,7 +10,7 @@
 
 - name: Execute the miniconda setup script
   sudo: False
-  command: /tmp/miniconda.sh -b -p {{ miniconda_home }} creates={{ miniconda_home }} executable=/bin/bash
+  shell: /tmp/miniconda.sh -b -p {{ miniconda_home }} creates={{ miniconda_home }} executable=/bin/bash
   notify:
     - remove miniconda setup script
 
