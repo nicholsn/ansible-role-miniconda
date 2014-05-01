@@ -47,14 +47,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
   # Pull Docker Container
-  #config.vm.provision :docker do |container|
-  #    container.pull_images "nicholsn/miniconda"
-  #end
+  config.vm.provision :docker do |container|
+      container.pull_images "nicholsn/miniconda"
+  end
 
   # Build from ansible
   config.vm.provision "shell" do |s|
     s.inline = "apt-get update"
-    s.inline += "&& apt-get install -y ansible git"
+    s.inline += "&& apt-get install -y ansible"
     s.inline += "&& ansible-galaxy install nicholsn.miniconda --force"
     s.inline += "&& ansible-playbook -i /etc/ansible/roles/nicholsn.miniconda/hosts /etc/ansible/roles/nicholsn.miniconda/local.yml -v"
   end
