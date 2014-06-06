@@ -44,18 +44,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--ioapic", "on"]
       vb.customize ["modifyvm", :id, "--memory", "4096"]
       vb.customize ["modifyvm", :id, "--cpus", "4"]
-    end
+  end
 
   # Pull Docker Container
   config.vm.provision :docker do |container|
       container.pull_images "nicholsn/miniconda"
   end
 
-  # Build from ansible
   config.vm.provision "shell" do |s|
     s.inline = "apt-get update"
-    s.inline += "&& apt-get install -y ansible"
-    s.inline += "&& ansible-galaxy install nicholsn.miniconda --force"
+    s.inline += "&& apt-get install -y python-pip python-dev"
+    s.inline += "&& pip install ansible"
+    s.inline += "&& ansible-galaxy install nicholsn.miniconda"
     s.inline += "&& ansible-playbook -i /etc/ansible/roles/nicholsn.miniconda/hosts /etc/ansible/roles/nicholsn.miniconda/local.yml -v"
   end
 end
